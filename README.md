@@ -2,31 +2,13 @@ forked from dvopalecky/gen-mapper
 # disciple-mapper
 App for mapping generations of reproducible disciples.
 
-## Usage
-The app can be found [here]().
-For details about usage click the Help button (?) in the app.
-
-There are several variants of the App, e.g. [Four Fields](https://dvopalecky.github.io/gen-mapper/four-fields/index.html) or [Church Circles](https://dvopalecky.github.io/gen-mapper/church-circles/index.html).
-These variants use templates so it's relatively easy to create a new variant for specific purpose.
-
 Currently the App use only front-end technologies: HTML, CSS, JavaScript.
 It can be also run offline. Downside is that the work must be stored in local .csv files.
 Backend support, i.e. saving work on the server, sharing etc. might be added later.
 
-## Example
-![gen-mapper example](https://dvopalecky.github.io/gen-mapper/gen-mapper-example1.png)
-
-## Changelog
-see [here](changelog.md)
-
 ## Known issues
 * Safari - not displaying some icons
 * Edge/Internet Explorer - wrong display of map
-
-## Ideas for improvements
-* Backend support: Saving work on server, sharing, etc.
-* Differentiate Between a reaper who didn't disciple the new convert with a red colored disciple (not discipled)
-* To address the issues you've highlighted with managing and tracking both discipleship and reaping relationships within the disciple mapper, here's a refined approach to enhancing the tool's functionality:
 
 ### Enhanced Data Model
 

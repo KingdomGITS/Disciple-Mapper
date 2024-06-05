@@ -110,13 +110,13 @@
       // entire scope variables
       let SUPABASE_URL, SUPABASE_ANON_KEY, _supabase;
 
-      fetch('/api/config')
+      // Create a promise that resolves when the fetch call is complete
+      let supabasePromise = fetch('/api/config')
         .then(response => response.json())
         .then(config => {
           SUPABASE_URL = config.SUPABASE_URL;
           SUPABASE_ANON_KEY = config.SUPABASE_ANON_KEY;
           _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
         });
 
       
@@ -151,6 +151,10 @@
         const email = document.getElementById('signup-email').value;
         const password = document.getElementById('signup-password').value;
         const signupData = { email, password };
+
+        // Wait for the supabase client to be initialized
+        await supabasePromise;
+
         _supabase.auth.signUp(signupData).then(response => {
           console.log(response);
         });
@@ -158,6 +162,10 @@
 
       // Check if a user is logged in or not
       window.onload = async function() {
+
+        // Wait for the supabase client to be initialized
+        await supabasePromise;
+        
         let { data: session, error } = await _supabase.auth.getSession();
 
         if (error) {

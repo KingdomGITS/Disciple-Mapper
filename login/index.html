@@ -107,16 +107,19 @@
   </div>
   
   <script>
-      let SUPABASE_URL, SUPABASE_ANON_KEY;
+      // entire scope variables
+      let SUPABASE_URL, SUPABASE_ANON_KEY, _supabase;
 
       fetch('/api/config')
         .then(response => response.json())
         .then(config => {
           SUPABASE_URL = config.SUPABASE_URL;
           SUPABASE_ANON_KEY = config.SUPABASE_ANON_KEY;
+          _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-      const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        });
 
+      
     // hard coded supabase url and key
       // ! WARNING  security risk use environment variable 
       // const SUPABASE_URL = 'https://xezfjntagznxsupfwewc.supabase.co'

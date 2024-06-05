@@ -145,7 +145,7 @@
       }
       
       // Sign up a user send the data to supabase and log the response
-      function handleSignup(event) {
+      async function handleSignup(event) {
         event.preventDefault();
         const name = document.getElementById('logname').value;
         const email = document.getElementById('signup-email').value;
@@ -165,7 +165,7 @@
 
         // Wait for the supabase client to be initialized
         await supabasePromise;
-        
+
         let { data: session, error } = await _supabase.auth.getSession();
 
         if (error) {

@@ -110,22 +110,31 @@
       // entire scope variables
       let SUPABASE_URL, SUPABASE_ANON_KEY, _supabase;
 
-      // Create a promise that resolves when the fetch call is complete
-      let supabasePromise = fetch('https://www.disciplemapper.com/api/config')
-        .then(response => response.json())
-        .then(config => {
-          SUPABASE_URL = config.SUPABASE_URL;
-          SUPABASE_ANON_KEY = config.SUPABASE_ANON_KEY;
-          _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        });
+      let urls = [
+        '/api/config',
+        'https://www.disciplemapper.com/api/config',
+        'https://disciplemaker.vercel.app/api/config'
+      ];
+
+      let supabasePromise = (async () => {
+        for (let url of urls) {
+          try {
+            let response = await fetch(url);
+            if (!response.ok) continue; // If response is not ok, try the next URL
+            let config = await response.json();
+            SUPABASE_URL = config.SUPABASE_URL;
+            SUPABASE_ANON_KEY = config.SUPABASE_ANON_KEY;
+            _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            break; // If successful, break the loop
+          } catch (error) {
+            console.error(`Failed to fetch from ${url}:`, error);
+            // If fetch fails, try the next URL
+          }
+        }
+      })();
 
       
-    // hard coded supabase url and key
-      // ! WARNING  security risk use environment variable 
-      // const SUPABASE_URL = 'https://xezfjntagznxsupfwewc.supabase.co'
-      // const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhlemZqbnRhZ3pueHN1cGZ3ZXdjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY0MDkzNzEsImV4cCI6MjAzMTk4NTM3MX0.bgqziA5e4oQQnQXuwRbqLyilgLgrfsib2c2TheFmxDA' //! WARNING  security risk use environment variable
-
-      // const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    
       
       // Sign in a user send the data to supabase and log the response
       async function handleLogin(event) {

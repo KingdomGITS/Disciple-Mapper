@@ -111,7 +111,7 @@
       let SUPABASE_URL, SUPABASE_ANON_KEY, _supabase;
 
       // Create a promise that resolves when the fetch call is complete
-      let supabasePromise = fetch('https://disciplemapper.com/api/config')
+      let supabasePromise = fetch('https://www.disciplemapper.com/api/config')
         .then(response => response.json())
         .then(config => {
           SUPABASE_URL = config.SUPABASE_URL;
